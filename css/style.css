@@ -30,13 +30,10 @@ h2 {
 	display: block;
 }
 
-.hidden {
-	display: none;
-}
 
 .response {
 	margin: 0 0 15px 0;
-	display:none;
+	display:block;
 	color: #009900;
 }
 
@@ -44,7 +41,11 @@ h2 {
 	font: italic bold 1em;
 	color: #990000;
 	margin: 0 0 15px 0;
-	display:none;
+	display:block;
+	
+}
 
+.hidden {
+	display: none;
 }
 
