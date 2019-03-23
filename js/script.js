@@ -31,14 +31,15 @@ Generator.prototype.outputRapName = function(inputName) {
         -Index in both arrays to determine which name to apply
 
     */
-    let howToManipulateName = Math.floor(Math.random() * 2);
+    let howToManipulateName = Math.floor(Math.random() * 3);
     let applyFirstName = Math.random() >= 0.5;
     let applyLastName = Math.random() >= 0.5;
-    let lastNameRandomIndex = this.last_names[Math.floor(Math.random() * this.last_names.length)];
-    let firstNameRandomIndex = this.first_names[Math.floor(Math.random() * this.first_names.length)];
+    let lastNameRandomIndex = Math.floor(Math.random() * this.last_names.length);
+    let firstNameRandomIndex = Math.floor(Math.random() * this.first_names.length);
+    console.log(firstNameRandomIndex);
 
     if (howToManipulateName === 1) {
-        rapName = rapName.toUpperCase().split('').join('.');
+        rapName = rapName.toUpperCase().split('').join('.') + '.';
     }
     else if (howToManipulateName === 2) {
         rapName = rapName[0].toUpperCase();
@@ -51,13 +52,18 @@ Generator.prototype.outputRapName = function(inputName) {
     if (applyLastName) {
         rapName = rapName + ' ' + this.last_names[lastNameRandomIndex];
     };
+
+    //We want to apply at least one of the rap names.  Apply both names if random returns double false.
+    if (!applyFirstName && !applyLastName) {
+        rapName = this.first_names[firstNameRandomIndex] + ' ' + rapName;
+        rapName = rapName + ' ' + this.last_names[lastNameRandomIndex];
+    }
     
     return rapName;
 }
 
 
 $(document).ready(function () {
-    console.log('ready');
     var engine = new Generator;
     const playButton = document.getElementById('enter');
     const inputForm = document.getElementById('user-input');
@@ -65,7 +71,6 @@ $(document).ready(function () {
     const rapNameDisplay = document.getElementById('rap-name-display');
 
     playButton.addEventListener('click', () => {
-        console.log('clicked button');
         if (inputForm.value === '') {
             noNameMessage.classList.remove('hidden')
             rapNameDisplay.classList.add('hidden');
